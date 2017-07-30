@@ -1,0 +1,29 @@
+{
+  "name": "@atlassian/adf-builder",
+  "version": "0.0.3",
+  "description": "Atlassian Document Format Builder",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": "git@bitbucket.org:atlassian/adf-builder-javascript.git",
+  "author": "Patrick Streule <pstreule@atlassian.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "test": "mocha --require ts-node/register --check-leaks `find ./src -name '*.spec.ts' -print`",
+    "test:dist": "mocha --check-leaks `find ./dist -name '*.spec.js' -print`",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "lint:fix": "tslint --fix -c tslint.json 'src/**/*.ts'",
+    "prepublish": "yarn build"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.0.1",
+    "@types/mocha": "^2.2.41",
+    "ajv": "4",
+    "axios": "^0.16.2",
+    "chai": "^4.1.0",
+    "mocha": "^3.4.2",
+    "ts-node": "^3.3.0",
+    "tslint": "^5.5.0",
+    "typescript": "^2.4.2"
+  }
+}
