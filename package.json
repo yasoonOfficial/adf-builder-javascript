@@ -11,9 +11,10 @@
     "build": "rm -rf dist && tsc",
     "test": "mocha --require ts-node/register --check-leaks `find ./src -name '*.spec.ts' -print`",
     "test:dist": "mocha --check-leaks `find ./dist -name '*.spec.js' -print`",
+    "test:coverage": "nyc yarn test",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "lint:fix": "tslint --fix -c tslint.json 'src/**/*.ts'",
-    "prepublish": "yarn build"
+    "prepublishOnly": "yarn build"
   },
   "devDependencies": {
     "@types/chai": "^4.0.1",
@@ -22,8 +23,15 @@
     "axios": "^0.16.2",
     "chai": "^4.1.0",
     "mocha": "^3.4.2",
+    "nyc": "^11.1.0",
     "ts-node": "^3.3.0",
     "tslint": "^5.5.0",
     "typescript": "^2.4.2"
+  },
+  "nyc": {
+    "include": "src/**/*.ts",
+    "exclude": "src/**/_specs",
+    "extension": ".ts",
+    "require": "ts-node/register"
   }
 }

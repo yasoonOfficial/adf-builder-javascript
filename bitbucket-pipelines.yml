@@ -8,3 +8,4 @@ pipelines:
           - yarn build
           - yarn test
           - yarn test:dist
+          - yarn test:coverage
