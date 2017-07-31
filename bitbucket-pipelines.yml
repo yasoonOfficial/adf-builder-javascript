@@ -1,0 +1,10 @@
+image: node:boron-slim
+
+pipelines:
+  default:
+    - step:
+        script:
+          - yarn
+          - yarn build
+          - yarn test
+          - yarn test:dist
