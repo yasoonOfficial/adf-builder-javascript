@@ -14,14 +14,17 @@ export class Media {
   }
 
   public toJSON(): Typed {
-    return {
+    const media: Typed = {
       type: 'media',
       attrs: {
         id: this.attrs.id,
         type: this.attrs.type,
-        collection: this.attrs.collection,
-        occurrenceKey: this.attrs.occurrenceKey
+        collection: this.attrs.collection
       }
     };
+    if (this.attrs.occurrenceKey) {
+      media.attrs.occurrenceKey = this.attrs.occurrenceKey;
+    }
+    return media;
   }
 }

@@ -42,7 +42,7 @@ describe('Document', () => {
 
   it('should be invalid with an empty decisionList', () => {
     const doc = new Document();
-    doc.decisionList();
+    doc.decisionList('1');
     expect(() => doc.toJSON()).to.throw();
   });
 
@@ -80,6 +80,20 @@ describe('Document', () => {
     const doc = new Document();
     doc.rule();
     expect(() => validate(doc)).to.not.throw(ValidationError);
+  });
+
+  it('should serialize to JSON with toString()', () => {
+    const doc = new Document();
+    doc.paragraph().text('hello');
+    // tslint:disable-next-line:max-line-length
+    expect(doc.toString()).to.equal('{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"hello"}]}],"version":1}');
+  });
+
+  it('should serialize to JSON with JSON.stringify', () => {
+    const doc = new Document();
+    doc.paragraph().text('hello');
+    // tslint:disable-next-line:max-line-length
+    expect(JSON.stringify(doc)).to.equal('{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"hello"}]}],"version":1}');
   });
 
 });

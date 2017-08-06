@@ -1,5 +1,5 @@
 import { ContentNode, TopLevelNode, Typed } from './index';
-import { link, plain, Text } from './text';
+import { link, Text } from './text';
 
 export class Heading extends TopLevelNode {
 
@@ -11,11 +11,6 @@ export class Heading extends TopLevelNode {
     if (level < 1 || level > 6) {
       throw new Error('Level must be in the range of 1-6');
     }
-  }
-
-  public text(text: string): this {
-    this.content.add(plain(text));
-    return this;
   }
 
   public link(text: string, href: string, title?: string): this {

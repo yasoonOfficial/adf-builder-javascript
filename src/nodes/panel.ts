@@ -15,9 +15,8 @@ export class Panel extends TopLevelNode {
     super();
   }
 
-  public heading(level: number): this {
-    this.content.add(new Heading(level));
-    return this;
+  public heading(level: number): Heading {
+    return this.content.add(new Heading(level));
   }
 
   public paragraph(): Paragraph {

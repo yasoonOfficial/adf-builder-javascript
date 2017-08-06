@@ -62,15 +62,27 @@ export class Detail {
   }
 
   public toJSON() {
-    const detail: any = {
-      title: this.detailTitle,
-      text: this.detailText,
-      icon: this.detailIcon,
-      badge: this.detailBadge,
-      lozenge: this.detailLozenge
-    };
+    const detail: any = {};
+    if (this.detailTitle) {
+      detail.title = this.detailTitle;
+    }
+    if (this.detailText) {
+      detail.text = this.detailText;
+    }
+    if (this.detailIcon) {
+      detail.icon = this.detailIcon;
+    }
+    if (this.detailBadge) {
+      detail.badge = this.detailBadge;
+    }
+    if (this.detailLozenge) {
+      detail.lozenge = this.detailLozenge;
+    }
     if (this.detailUsers.length > 0) {
       detail.users = this.detailUsers;
+    }
+    if (Object.keys(detail).length === 0) {
+      throw new Error('Must at least set one attribute');
     }
     return detail;
   }

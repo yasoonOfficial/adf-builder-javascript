@@ -6,6 +6,5 @@ pipelines:
         script:
           - yarn
           - yarn build
-          - yarn test
-          - yarn test:dist
           - yarn test:coverage
+          - yarn test:dist

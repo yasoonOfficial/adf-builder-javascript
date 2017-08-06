@@ -55,6 +55,10 @@ export class Marks {
   }
 
   private add(mark: Mark): this {
+    const existing = this.marks.filter(m => m.type === mark.type);
+    if (existing.length > 0) {
+      throw new Error('A mark type can only be used once');
+    }
     this.marks.push(mark);
     return this;
   }

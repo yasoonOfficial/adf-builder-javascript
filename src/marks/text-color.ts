@@ -1,6 +1,6 @@
 import { Mark } from './mark';
 
-const colorPattern = new RegExp('^#[0-9a-f]{6}$').compile();
+const colorPattern = /^#[0-9a-f]{6}$/;
 
 export class TextColor extends Mark {
 

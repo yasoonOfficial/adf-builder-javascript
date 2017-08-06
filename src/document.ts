@@ -39,13 +39,12 @@ export class Document {
     return this.content.add(new CodeBlock(language));
   }
 
-  public decisionList(): DecisionList {
-    return this.content.add(new DecisionList());
+  public decisionList(localId: string): DecisionList {
+    return this.content.add(new DecisionList(localId));
   }
 
-  public heading(level: number): this {
-    this.content.add(new Heading(level));
-    return this;
+  public heading(level: number): Heading {
+    return this.content.add(new Heading(level));
   }
 
   public mediaGroup(): MediaGroup {

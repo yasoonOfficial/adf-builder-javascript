@@ -269,6 +269,30 @@ describe('Template Tag', () => {
     expect(() => validate(doc)).to.not.throw(ValidationError);
   });
 
+  it('should support skip empty string substitutions', () => {
+    const a = '';
+    const doc = document`A ${a} variable`;
+    expect(doc.toJSON()).to.deep.equal({
+      type: 'doc',
+      version: 1,
+      content: [
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              text: 'A '
+            },
+            {
+              type: 'text',
+              text: ' variable'
+            },
+          ]
+        }
+      ]
+    });
+  });
+
   it('should not allow top-level nodes', () => {
     const doc = () => document`A card: ${new ApplicationCard('title')}`;
     expect(doc).to.throw();

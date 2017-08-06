@@ -27,7 +27,7 @@ export class Emoji extends InlineNode {
       emojiNode.attrs.id = this.attrs.id;
     }
     if (this.attrs.fallBack) {
-      emojiNode.attrs.fallBack = this.attrs.fallBack;
+      emojiNode.attrs.fallback = this.attrs.fallBack;
     }
     return emojiNode;
   }
