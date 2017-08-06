@@ -1,6 +1,6 @@
 {
   "name": "@atlassian/adf-builder",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "Atlassian Document Format Builder",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
