@@ -112,7 +112,7 @@ doc.applicationCard('Title')
 For lists, there are some convenience methods that cover the simple cases. Consider a list like the following:
 
 * Do this first
-* Do this seconds
+* Do this second
 
 In order to create that list, you can use:
 
