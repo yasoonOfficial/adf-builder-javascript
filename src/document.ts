@@ -47,6 +47,10 @@ export class Document {
     return this.content.add(new Heading(level));
   }
 
+  public textHeading(level: number, text: string): Heading {
+    return this.content.add(new Heading(level).text(text));
+  }
+
   public mediaGroup(): MediaGroup {
     return this.content.add(new MediaGroup());
   }

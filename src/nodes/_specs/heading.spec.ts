@@ -31,7 +31,26 @@ describe('Heading', () => {
 
   it('should create a valid heading with text', () => {
     const doc = new Document();
+    const head = doc.heading(1).text('Title');
+    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(head.toJSON()).to.deep.equal({
+      type: 'heading',
+      attrs: {
+        level: 1
+      },
+      content: [
+        {
+          type: 'text',
+          text: 'Title'
+        }
+      ]
+    });
+  });
+
+  it('should create a valid heading with a link', () => {
+    const doc = new Document();
     const head = doc.heading(1).link('Title', 'https://example.com');
+    expect(() => validate(doc)).to.not.throw(ValidationError);
     expect(head.toJSON()).to.deep.equal({
       type: 'heading',
       attrs: {
@@ -52,7 +71,6 @@ describe('Heading', () => {
         }
       ]
     });
-    expect(() => validate(doc)).to.not.throw(ValidationError);
   });
 
 });

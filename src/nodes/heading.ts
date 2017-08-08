@@ -1,5 +1,5 @@
 import { ContentNode, TopLevelNode, Typed } from './index';
-import { link, Text } from './text';
+import { link, plain, Text } from './text';
 
 export class Heading extends TopLevelNode {
 
@@ -15,6 +15,11 @@ export class Heading extends TopLevelNode {
 
   public link(text: string, href: string, title?: string): this {
     this.content.add(link(text, href, title));
+    return this;
+  }
+
+  public text(text: string): this {
+    this.content.add(plain(text));
     return this;
   }
 

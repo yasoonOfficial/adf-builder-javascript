@@ -52,6 +52,12 @@ describe('Document', () => {
     expect(() => doc.toJSON()).to.throw();
   });
 
+  it('should be valid with an text heading', () => {
+    const doc = new Document();
+    doc.textHeading(1, 'Heading');
+    expect(() => validate(doc)).to.not.throw(ValidationError);
+  });
+
   it('should be invalid with an empty mediaGroup', () => {
     const doc = new Document();
     doc.mediaGroup();
