@@ -6,11 +6,11 @@ A library that simplifies building documents that follow the Atlassian Document 
 
 Install the package using
 
-    npm i -S @atlassian/adf-builder
+    npm i -S adf-builder
 
 or
 
-    yarn add @atlassian/adf-builder
+    yarn add adf-builder
 
 ## Usage
 
@@ -22,8 +22,8 @@ This package offers two ways of building documents:
 ### Fluent Interface
 
 ```javascript
-import { Document } from '@atlassian/adf-builder'; // For TypeScript or ES6
-// const { Document } = require('@atlassian/adf-builder'); // For node/commonjs
+import { Document } from 'adf-builder'; // For TypeScript or ES6
+// const { Document } = require('adf-builder'); // For node/commonjs
 
 const doc = new Document();
 doc.paragraph()
@@ -36,8 +36,8 @@ doc.paragraph()
 ### Tagged Template Literals
 
 ```javascript
-import { document, emoji, link } from '@atlassian/adf-builder'; // For TypeScript or ES6
-// const { document, emoji, link } = require('@atlassian/adf-builder'); // For node/commonjs
+import { document, emoji, link } from 'adf-builder'; // For TypeScript or ES6
+// const { document, emoji, link } = require('adf-builder'); // For node/commonjs
 
 const doc = document`See the ${link('documentation', 'https://example.com')} ${emoji('smile')}`;
 ```
@@ -69,7 +69,7 @@ In order to get an output like:
 You would use:
 
 ```javascript
-const { Document } = require('@atlassian/adf-builder');
+const { Document } = require('adf-builder');
 
 const doc = new Document();
 doc.paragraph()
@@ -88,7 +88,7 @@ The `Paragraph` class has some convenience methods for text with a single mark l
 If you need more than one mark, you can use the marks builder:
 
 ```javascript
-const { Document, marks } = require('@atlassian/adf-builder');
+const { Document, marks } = require('adf-builder');
 
 const doc = new Document();
 doc.paragraph()

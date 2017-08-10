@@ -59,3 +59,7 @@ typings/
 
 # Project-specific
 dist/
+
+# OS X
+
+.DS_Store
