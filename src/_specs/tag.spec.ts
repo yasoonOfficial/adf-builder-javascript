@@ -303,4 +303,29 @@ describe('Template Tag', () => {
     expect(() => doc.toJSON()).to.throw();
   });
 
+  it('should handle substitutions at the beginning', () => {
+    const doc = document`${emoji('smile')} A`;
+    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc.toJSON()).to.deep.equal({
+      type: 'doc',
+      version: 1,
+      content: [
+        {
+          type: 'paragraph',
+          content: [
+            {
+              attrs: {
+                shortName: 'smile',
+              },
+              type: 'emoji'
+            },
+            {
+              type: 'text',
+              text: ' A'
+            }
+          ]
+        }
+      ]
+    });
+  });
 });

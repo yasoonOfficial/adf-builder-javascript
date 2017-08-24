@@ -7,7 +7,9 @@ export function document(strings: TemplateStringsArray, ...args: any[]): Documen
   const paragraph = doc.paragraph();
 
   for (let i = 0; i < args.length; i++) {
-    paragraph.text(strings[i]);
+    if (strings[i].length) {
+      paragraph.text(strings[i]);
+    }
     if (args[i] instanceof TopLevelNode) {
       throw new Error('Top level nodes cannot be used in tagged templates');
     }
