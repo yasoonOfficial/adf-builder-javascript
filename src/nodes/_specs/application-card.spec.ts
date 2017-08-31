@@ -323,4 +323,30 @@ describe('Application Card', () => {
       });
     });
   });
+
+  describe('context', () => {
+
+    it('should set the text attribute', () => {
+      const doc = new Document();
+      const context = doc.applicationCard('Title').context('Context');
+      expect(() => validate(doc)).to.not.throw(ValidationError);
+      expect(context.toJSON()).to.deep.equal({
+        text: 'Context'
+      });
+    });
+
+    it('should set the icon', () => {
+      const doc = new Document();
+      const context = doc.applicationCard('Title').context('Context');
+      context.icon({ url: 'https://example.com/icon.png', label: 'Icon'});
+      expect(() => validate(doc)).to.not.throw(ValidationError);
+      expect(context.toJSON()).to.deep.equal({
+        text: 'Context',
+        icon: {
+          url: 'https://example.com/icon.png',
+          label: 'Icon'
+        }
+      });
+    });
+  });
 });
