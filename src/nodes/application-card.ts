@@ -1,14 +1,14 @@
 import { TopLevelNode, Typed } from './index';
 
+export interface Icon {
+  url: string;
+  label: string;
+}
+
 export interface DetailLozenge {
   text: string;
   bold?: boolean;
   appearance?: 'default' | 'removed' | 'success' | 'inprogress' | 'new' | 'moved';
-}
-
-export interface DetailIcon {
-  url: string;
-  label: string;
 }
 
 export interface DetailBadge {
@@ -19,7 +19,7 @@ export interface DetailBadge {
 
 export interface DetailUser {
   id?: string;
-  icon: DetailIcon;
+  icon: Icon;
 }
 
 export class Detail {
@@ -27,7 +27,7 @@ export class Detail {
   private detailTitle: string;
   private detailText: string;
   private detailLozenge: DetailLozenge;
-  private detailIcon: DetailIcon;
+  private detailIcon: Icon;
   private detailBadge: DetailBadge;
   private detailUsers: DetailUser[] = [];
 
@@ -46,7 +46,7 @@ export class Detail {
     return this;
   }
 
-  public icon(icon: DetailIcon): this {
+  public icon(icon: Icon): this {
     this.detailIcon = icon;
     return this;
   }
@@ -88,6 +88,28 @@ export class Detail {
   }
 }
 
+export class Context {
+  private contextIcon: Icon;
+
+  public constructor(private text: string) {
+  }
+
+  public icon(icon: Icon): this {
+    this.contextIcon = icon;
+    return this;
+  }
+
+  public toJSON() {
+    const context: Partial<Typed> = {
+      text: this.text
+    };
+    if (this.contextIcon) {
+      context.icon = this.contextIcon;
+    }
+    return context;
+  }
+}
+
 export class ApplicationCard extends TopLevelNode {
 
   private linkUrl: string;
@@ -97,6 +119,7 @@ export class ApplicationCard extends TopLevelNode {
   private descriptionText: string;
 
   private details: Detail[] = [];
+  private cardContext: Context;
 
   constructor(
     private readonly title: string,
@@ -135,6 +158,11 @@ export class ApplicationCard extends TopLevelNode {
     return detail;
   }
 
+  public context(text: string): Context {
+    this.cardContext = new Context(text);
+    return this.cardContext;
+  }
+
   public toJSON(): Typed {
     const card: Typed = {
       type: 'applicationCard',
@@ -169,6 +197,9 @@ export class ApplicationCard extends TopLevelNode {
     }
     if (this.details.length > 0) {
       card.attrs.details = this.details.map(detail => detail.toJSON());
+    }
+    if (this.cardContext) {
+      card.attrs.context = this.cardContext.toJSON();
     }
     return card;
   }
