@@ -23,7 +23,7 @@ describe('Block Quote', () => {
     quote.paragraph().text('quoted');
     expect(() => validate(doc)).to.not.throw(ValidationError);
     expect(quote.toJSON()).to.deep.equal({
-      type: 'blockQuote',
+      type: 'blockquote',
       content: [
         {
           content: [
