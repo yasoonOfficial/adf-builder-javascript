@@ -22,6 +22,35 @@ export interface DetailUser {
   icon: Icon;
 }
 
+export class Action {
+  private actionTitle: string;
+  private actionTarget: string;
+
+  public title(title: string): this {
+    this.actionTitle = title;
+    return this;
+  }
+
+  public target(target: string): this {
+    this.actionTarget = target;
+    return this;
+  }
+
+  public toJSON() {
+    const action: any = {};
+    if (this.actionTitle) {
+      action.title = this.actionTitle;
+    }
+    if (this.actionTarget) {
+      action.target = this.actionTarget;
+    }
+    if (Object.keys(action).length < 2) {
+      throw new Error('Must set title and target attributes for action');
+    }
+    return action;
+  }
+}
+
 export class Detail {
 
   private detailTitle: string;
@@ -119,6 +148,7 @@ export class ApplicationCard extends TopLevelNode {
   private descriptionText: string;
 
   private details: Detail[] = [];
+  private actions: Action[] = [];
   private cardContext: Context;
 
   constructor(
@@ -156,6 +186,12 @@ export class ApplicationCard extends TopLevelNode {
     const detail = new Detail();
     this.details.push(detail);
     return detail;
+  }
+
+  public action(): Action {
+    const action = new Action();
+    this.actions.push(action);
+    return action;
   }
 
   public context(text: string): Context {
@@ -197,6 +233,9 @@ export class ApplicationCard extends TopLevelNode {
     }
     if (this.details.length > 0) {
       card.attrs.details = this.details.map(detail => detail.toJSON());
+    }
+    if (this.actions.length > 0) {
+      card.attrs.actions = this.actions.map(action => action.toJSON());
     }
     if (this.cardContext) {
       card.attrs.context = this.cardContext.toJSON();

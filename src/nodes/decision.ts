@@ -38,8 +38,8 @@ export class Decision {
     return this.add(new Mention(id, text));
   }
 
-  public emoji(shortName: string, id?: string, fallBack?: string): this {
-    return this.add(new Emoji({ shortName, id, fallBack }));
+  public emoji(shortName: string, id?: string, text?: string): this {
+    return this.add(new Emoji({ shortName, id, text }));
   }
 
   public hardBreak(): this {

@@ -41,7 +41,7 @@ describe('Emoji', () => {
     });
   });
 
-  it('should create a valid emoji with shortName, id and fallback', () => {
+  it('should create a valid emoji with shortName, id and text', () => {
     const emo = emoji('smile', '123', ':)');
     expect(() => validateEmoji(emo)).to.not.throw(ValidationError);
     expect(emo.toJSON()).to.deep.equal({
@@ -49,7 +49,7 @@ describe('Emoji', () => {
       attrs: {
         shortName: 'smile',
         id: '123',
-        fallback: ':)'
+        text: ':)'
       }
     });
   });

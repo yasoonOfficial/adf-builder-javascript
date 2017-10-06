@@ -146,6 +146,43 @@ describe('Application Card', () => {
     });
   });
 
+  describe('actions', () => {
+
+    it('should never be empty', () => {
+      const doc = new Document();
+      doc.applicationCard('Title').action();
+      expect(() => doc.toJSON()).to.throw();
+    });
+
+    it('should set the title and target attributes', () => {
+      const doc = new Document();
+      const action = doc.applicationCard('Title').action();
+      action.title('Action');
+      action.target('Target');
+      expect(() => validate(doc)).to.not.throw(ValidationError);
+      expect(action.toJSON()).to.deep.equal({
+        title: 'Action',
+        target: 'Target'
+      });
+    });
+
+    it('should fail when title is missing', () => {
+      const doc = new Document();
+      const action = doc.applicationCard('Title').action();
+      action.title('Action');
+      expect(() => validate(doc)).to.not.throw(ValidationError);
+      expect(() => doc.toJSON()).to.throw();
+    });
+
+    it('should fail when target is missing', () => {
+      const doc = new Document();
+      const action = doc.applicationCard('Title').action();
+      action.target('Target');
+      expect(() => validate(doc)).to.not.throw(ValidationError);
+      expect(() => doc.toJSON()).to.throw();
+    });
+  });
+
   describe('details', () => {
 
     it('should never be empty', () => {
