@@ -1,13 +1,13 @@
 import { InlineNode, Typed } from './index';
 
-export function emoji(shortName: string, id?: string, fallBack?: string) {
-  return new Emoji({ shortName, id, fallBack });
+export function emoji(shortName: string, id?: string, text?: string) {
+  return new Emoji({ shortName, id, text });
 }
 
 export interface EmojiAttributes {
   shortName: string;
   id?: string;
-  fallBack?: string;
+  text?: string;
 }
 
 export class Emoji extends InlineNode {
@@ -26,8 +26,8 @@ export class Emoji extends InlineNode {
     if (this.attrs.id) {
       emojiNode.attrs.id = this.attrs.id;
     }
-    if (this.attrs.fallBack) {
-      emojiNode.attrs.fallback = this.attrs.fallBack;
+    if (this.attrs.text) {
+      emojiNode.attrs.text = this.attrs.text;
     }
     return emojiNode;
   }
