@@ -22,17 +22,31 @@ export interface DetailUser {
   icon: Icon;
 }
 
+export interface ActionTarget {
+  app?: string;
+  key: string;
+}
+
 export class Action {
   private actionTitle: string;
-  private actionTarget: string;
+  private actionTarget: ActionTarget;
+  private actionParameters?: object;
 
   public title(title: string): this {
     this.actionTitle = title;
     return this;
   }
 
-  public target(target: string): this {
+  public target(target: ActionTarget): this {
+    if (!target.key) {
+      throw new Error('Action target key is required');
+    }
     this.actionTarget = target;
+    return this;
+  }
+
+  public parameters(parameters: object): this {
+    this.actionParameters = parameters;
     return this;
   }
 
@@ -43,6 +57,9 @@ export class Action {
     }
     if (this.actionTarget) {
       action.target = this.actionTarget;
+    }
+    if (this.actionParameters) {
+      action.parameters = this.actionParameters;
     }
     if (Object.keys(action).length < 2) {
       throw new Error('Must set title and target attributes for action');

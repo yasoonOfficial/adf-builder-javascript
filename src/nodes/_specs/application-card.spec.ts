@@ -158,15 +158,27 @@ describe('Application Card', () => {
       const doc = new Document();
       const action = doc.applicationCard('Title').action();
       action.title('Action');
-      action.target('Target');
+      action.target({
+        app: 'app',
+        key: 'test'
+      });
+      action.parameters({
+        test: 100
+      });
       expect(() => validate(doc)).to.not.throw(ValidationError);
       expect(action.toJSON()).to.deep.equal({
         title: 'Action',
-        target: 'Target'
+        target: {
+          app: 'app',
+          key: 'test'
+        },
+        parameters: {
+          test: 100
+        }
       });
     });
 
-    it('should fail when title is missing', () => {
+    it('should fail when target is missing', () => {
       const doc = new Document();
       const action = doc.applicationCard('Title').action();
       action.title('Action');
@@ -174,10 +186,12 @@ describe('Application Card', () => {
       expect(() => doc.toJSON()).to.throw();
     });
 
-    it('should fail when target is missing', () => {
+    it('should fail when title is missing', () => {
       const doc = new Document();
       const action = doc.applicationCard('Title').action();
-      action.target('Target');
+      action.target({
+        key: 'test'
+      });
       expect(() => validate(doc)).to.not.throw(ValidationError);
       expect(() => doc.toJSON()).to.throw();
     });
