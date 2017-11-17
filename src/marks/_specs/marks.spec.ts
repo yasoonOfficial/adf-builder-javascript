@@ -136,4 +136,36 @@ describe('Marks', () => {
       }]);
     });
   });
+
+  describe('action', () => {
+
+    it('should create a valid action mark', () => {
+      const m = marks().action('Title', { key: 'key' });
+      expect(() => validateMark(m)).to.not.throw(ValidationError);
+      expect(m.toJSON()).to.deep.equal([{
+        type: 'action',
+        attrs: {
+          title: 'Title',
+          target: {
+            key: 'key'
+          }
+        }
+      }]);
+    });
+
+    it('should create a valid action mark with receiver', () => {
+      const m = marks().action('Title', { key: 'key', receiver: 'app' });
+      expect(() => validateMark(m)).to.not.throw(ValidationError);
+      expect(m.toJSON()).to.deep.equal([{
+        type: 'action',
+        attrs: {
+          title: 'Title',
+          target: {
+            key: 'key',
+            receiver: 'app'
+          }
+        }
+      }]);
+    });
+  });
 });

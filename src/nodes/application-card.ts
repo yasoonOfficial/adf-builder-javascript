@@ -23,7 +23,7 @@ export interface DetailUser {
 }
 
 export interface ActionTarget {
-  app?: string;
+  receiver?: string;
   key: string;
 }
 

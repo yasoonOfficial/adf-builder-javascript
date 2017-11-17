@@ -1,3 +1,4 @@
+import { Action, ActionTarget } from './action';
 import { Code } from './code';
 import { Em } from './em';
 import { Link } from './link';
@@ -45,6 +46,10 @@ export class Marks {
 
   public underline(): this {
     return this.add(new Underline());
+  }
+
+  public action(title: string, target: ActionTarget): this {
+    return this.add(new Action(title, target));
   }
 
   public toJSON() {

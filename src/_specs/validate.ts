@@ -3,7 +3,7 @@ import * as axios from 'axios';
 import { Document } from '../index';
 
 // tslint:disable-next-line:max-line-length
-const SCHEMA_URL = 'https://bitbucket.org/atlassian/atlaskit/raw/master/packages/editor-core/dist/json-schema/v1/full.json';
+const SCHEMA_URL = 'https://bitbucket.org/atlassian/atlaskit-mk-2/raw/master/packages/fabric/editor-common/json-schema/v1/full.json';
 const ajv = new Ajv();
 
 export type Validator = (doc: Document) => void;

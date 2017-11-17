@@ -159,7 +159,7 @@ describe('Application Card', () => {
       const action = doc.applicationCard('Title').action();
       action.title('Action');
       action.target({
-        app: 'app',
+        receiver: 'app',
         key: 'test'
       });
       action.parameters({
@@ -169,7 +169,7 @@ describe('Application Card', () => {
       expect(action.toJSON()).to.deep.equal({
         title: 'Action',
         target: {
-          app: 'app',
+          receiver: 'app',
           key: 'test'
         },
         parameters: {
