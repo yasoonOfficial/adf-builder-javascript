@@ -9,7 +9,8 @@ export class Action extends Mark {
 
   constructor(
     private readonly title: string,
-    private readonly target: ActionTarget) {
+    private readonly target: ActionTarget,
+    private readonly actionParameters?: object) {
     super('action');
   }
 
@@ -21,6 +22,10 @@ export class Action extends Mark {
         target: this.target
       }
     };
+
+    if (this.actionParameters) {
+      actionMark.attrs.parameters = this.actionParameters;
+    }
     return actionMark;
   }
 }
