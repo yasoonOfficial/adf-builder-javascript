@@ -48,8 +48,8 @@ export class Marks {
     return this.add(new Underline());
   }
 
-  public action(title: string, target: ActionTarget): this {
-    return this.add(new Action(title, target));
+  public action(title: string, target: ActionTarget, actionParameters?: object): this {
+    return this.add(new Action(title, target, actionParameters));
   }
 
   public toJSON() {

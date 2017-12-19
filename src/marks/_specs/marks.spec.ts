@@ -167,5 +167,24 @@ describe('Marks', () => {
         }
       }]);
     });
+
+    it('should create a valid action mark with parameters', () => {
+      const m = marks().action('Title', { key: 'key'}, {'key1': 'value1', 'key2': 'value2'} );
+      console.log(m.toJSON());
+      expect(() => validateMark(m)).to.not.throw(ValidationError);
+      expect(m.toJSON()).to.deep.equal([{
+        type: 'action',
+        attrs: {
+          title: 'Title',
+          target: {
+            key: 'key'
+          },
+          parameters: {
+            'key1': 'value1',
+            'key2': 'value2'
+          }
+        }
+      }]);
+    });
   });
 });
