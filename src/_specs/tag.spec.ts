@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { code, document, em, emoji, link, mention, strong, ApplicationCard } from '../index';
+import { code, document, em, emoji, link, mention, strike, strong, ApplicationCard } from '../index';
 import { validator, ValidationError, Validator } from './validate';
 
 describe('Template Tag', () => {
@@ -53,6 +53,41 @@ describe('Template Tag', () => {
               type: 'text',
               text: '2'
             }
+          ]
+        }
+      ]
+    });
+  });
+
+  it('should support strike style nodes', () => {
+
+    const doc = document`A ${strike('strike')} statement`;
+
+    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc.toJSON()).to.deep.equal({
+      type: 'doc',
+      version: 1,
+      content: [
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              text: 'A '
+            },
+            {
+              type: 'text',
+              text: 'strike',
+              marks: [
+                {
+                  type: 'strike'
+                }
+              ]
+            },
+            {
+              type: 'text',
+              text: ' statement'
+            },
           ]
         }
       ]

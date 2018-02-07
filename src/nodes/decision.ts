@@ -3,7 +3,7 @@ import { Emoji } from './emoji';
 import { HardBreak } from './hard-break';
 import { ContentNode, InlineNode, Typed } from './index';
 import { Mention } from './mention';
-import { code, em, link, strong, Text } from './text';
+import { code, em, link, strike, strong, Text } from './text';
 
 export class Decision {
 
@@ -29,6 +29,11 @@ export class Decision {
   public link(text: string, href: string, title?: string): this {
     return this.add(link(text, href, title));
   }
+
+  public strike(text: string): this {
+    return this.add(strike(text));
+  }
+
 
   public strong(text: string): this {
     return this.add(strong(text));

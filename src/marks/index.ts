@@ -3,6 +3,7 @@ import { Code } from './code';
 import { Em } from './em';
 import { Link } from './link';
 import { Mark } from './mark';
+import { Strike } from './strike';
 import { Strong } from './strong';
 import { SubSup } from './subsup';
 import { TextColor } from './text-color';
@@ -26,6 +27,10 @@ export class Marks {
 
   public link(href: string, title?: string): this {
     return this.add(new Link(href, title));
+  }
+
+  public strike(): this {
+    return this.add(new Strike());
   }
 
   public strong(): this {

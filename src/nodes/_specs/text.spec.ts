@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { Document } from '../../index';
 import { marks } from '../../marks';
 import { validator, ValidationError, Validator } from '../../_specs/validate';
-import { code, em, link, plain, strong, Text } from '../text';
+import { code, em, link, plain, strike, strong, Text } from '../text';
 
 describe('Text', () => {
 
@@ -70,6 +70,20 @@ describe('Text', () => {
       expect(text.toJSON()).to.deep.equal({
         type: 'text',
         text: 'some text'
+      });
+    });
+  });
+
+  describe('strike', () => {
+    it('should create a text node with a strike mark', () => {
+      const text = strike('some text');
+      expect(() => validateText(text)).to.not.throw(ValidationError);
+      expect(text.toJSON()).to.deep.equal({
+        type: 'text',
+        text: 'some text',
+        marks: [
+          { type: 'strike' }
+        ]
       });
     });
   });

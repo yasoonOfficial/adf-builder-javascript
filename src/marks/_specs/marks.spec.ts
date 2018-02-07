@@ -72,6 +72,17 @@ describe('Marks', () => {
     });
   });
 
+  describe('strike', () => {
+    it('should create a valid strike mark', () => {
+      const m = marks().strike();
+      expect(() => validateMark(m)).to.not.throw(ValidationError);
+      expect(m.toJSON()).to.deep.equal([{
+        type: 'strike'
+      }]);
+    });
+  });
+
+
   describe('strong', () => {
     it('should create a valid strong mark', () => {
       const m = marks().strong();
