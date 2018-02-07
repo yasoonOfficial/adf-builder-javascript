@@ -86,6 +86,30 @@ describe('Decision', () => {
     });
   });
 
+  it('should create a strike node in the decision', () => {
+    const doc = new Document();
+    const decision = doc.decisionList('1')
+      .decision('1', 'done')
+      .strike('a');
+    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(decision.toJSON()).to.deep.equal({
+      type: 'decisionItem',
+      attrs: {
+        localId: '1',
+        state: 'done'
+      },
+      content: [
+        {
+          type: 'text',
+          text: 'a',
+          marks: [
+            { type: 'strike' }
+          ]
+        }
+      ]
+    });
+  });
+
   it('should create a strong node in the decision', () => {
     const doc = new Document();
     const decision = doc.decisionList('1')

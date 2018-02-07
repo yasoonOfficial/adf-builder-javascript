@@ -5,6 +5,10 @@ export function plain(text: string): Text {
   return new Text(text);
 }
 
+export function strike(text: string): Text {
+  return new Text(text, mark().strike());
+}
+
 export function strong(text: string): Text {
   return new Text(text, mark().strong());
 }
