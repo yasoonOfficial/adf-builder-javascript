@@ -1,14 +1,12 @@
-import { expect } from 'chai';
+import { expect, use } from 'chai';
 import { Document } from '../../index';
-import { validator, ValidationError, Validator } from '../../_specs/validate';
+import { adfValidator } from '../../_chai';
 
 describe('Decision', () => {
 
-  let validate: Validator;
-
   before(async function() {
     this.timeout(5000);
-    validate = await validator();
+    use(await adfValidator());
   });
 
   it('should not allow decision list items without content', () => {
@@ -22,7 +20,7 @@ describe('Decision', () => {
     const decision = doc.decisionList('1')
       .decision('1', 'done')
       .text('a');
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(decision.toJSON()).to.deep.equal({
       type: 'decisionItem',
       attrs: {
@@ -43,7 +41,7 @@ describe('Decision', () => {
     const decision = doc.decisionList('1')
       .decision('1', 'done')
       .code('a');
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(decision.toJSON()).to.deep.equal({
       type: 'decisionItem',
       attrs: {
@@ -67,7 +65,7 @@ describe('Decision', () => {
     const decision = doc.decisionList('1')
       .decision('1', 'done')
       .em('a');
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(decision.toJSON()).to.deep.equal({
       type: 'decisionItem',
       attrs: {
@@ -91,7 +89,7 @@ describe('Decision', () => {
     const decision = doc.decisionList('1')
       .decision('1', 'done')
       .strike('a');
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(decision.toJSON()).to.deep.equal({
       type: 'decisionItem',
       attrs: {
@@ -115,7 +113,7 @@ describe('Decision', () => {
     const decision = doc.decisionList('1')
       .decision('1', 'done')
       .strong('a');
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(decision.toJSON()).to.deep.equal({
       type: 'decisionItem',
       attrs: {
@@ -139,7 +137,7 @@ describe('Decision', () => {
     const decision = doc.decisionList('1')
       .decision('1', 'done')
       .emoji('a');
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(decision.toJSON()).to.deep.equal({
       type: 'decisionItem',
       attrs: {
@@ -162,7 +160,7 @@ describe('Decision', () => {
     const decision = doc.decisionList('1')
       .decision('1', 'done')
       .hardBreak();
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(decision.toJSON()).to.deep.equal({
       type: 'decisionItem',
       attrs: {
@@ -185,7 +183,7 @@ describe('Decision', () => {
     const decision = doc.decisionList('1')
       .decision('1', 'done')
       .link('a', 'https://example.com/a');
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(decision.toJSON()).to.deep.equal({
       type: 'decisionItem',
       attrs: {
@@ -212,7 +210,7 @@ describe('Decision', () => {
     const decision = doc.decisionList('1')
       .decision('1', 'done')
       .mention('123', 'a');
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(decision.toJSON()).to.deep.equal({
       type: 'decisionItem',
       attrs: {

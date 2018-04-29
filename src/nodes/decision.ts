@@ -34,7 +34,6 @@ export class Decision {
     return this.add(strike(text));
   }
 
-
   public strong(text: string): this {
     return this.add(strong(text));
   }

@@ -1,22 +1,20 @@
-import { expect } from 'chai';
+import { expect, use } from 'chai';
 import { Document } from '../../index';
-import { validator, ValidationError, Validator } from '../../_specs/validate';
+import { adfValidator } from '../../_chai';
 import { hardBreak } from '../hard-break';
 
 describe('Hard Break', () => {
 
-  let validate: Validator;
-
   before(async function() {
     this.timeout(5000);
-    validate = await validator();
+    use(await adfValidator());
   });
 
   it('should create a valid hard break', () => {
     const doc = new Document();
     const hb = hardBreak();
     doc.paragraph().add(hb);
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(hb.toJSON()).to.deep.equal({
       type: 'hardBreak',
       attrs: {

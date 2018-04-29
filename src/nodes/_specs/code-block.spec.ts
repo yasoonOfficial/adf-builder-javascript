@@ -1,14 +1,12 @@
-import { expect } from 'chai';
+import { expect, use } from 'chai';
 import { Document } from '../../index';
-import { validator, ValidationError, Validator } from '../../_specs/validate';
+import { adfValidator } from '../../_chai';
 
 describe('Code Block', () => {
 
-  let validate: Validator;
-
   before(async function() {
     this.timeout(5000);
-    validate = await validator();
+    use(await adfValidator());
   });
 
   it('should not allow empty code blocks', () => {
@@ -20,7 +18,7 @@ describe('Code Block', () => {
   it('should create valid code block', () => {
     const doc = new Document();
     const block = doc.codeBlock().text('const i = 0');
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(block.toJSON()).to.deep.equal({
       type: 'codeBlock',
       content: [
@@ -35,7 +33,7 @@ describe('Code Block', () => {
   it('should create valid code block with the language attribute set', () => {
     const doc = new Document();
     const block = doc.codeBlock('typescript').text('const i = 0');
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(block.toJSON()).to.deep.equal({
       type: 'codeBlock',
       attrs: {

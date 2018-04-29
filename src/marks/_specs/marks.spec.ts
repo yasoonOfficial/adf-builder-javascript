@@ -1,21 +1,19 @@
-import { expect } from 'chai';
+import { expect, use } from 'chai';
 import { marks, Marks } from '../';
 import { Document } from '../../index';
-import { validator, ValidationError, Validator } from '../../_specs/validate';
+import { adfValidator } from '../../_chai';
 
 describe('Marks', () => {
 
-  let validate: Validator;
-
-  function validateMark(mark: Marks) {
+  function docFromMark(mark: Marks) {
     const doc = new Document();
     doc.paragraph().text('any', mark);
-    validate(doc);
+    return doc;
   }
 
   before(async function() {
     this.timeout(5000);
-    validate = await validator();
+    use(await adfValidator());
   });
 
   it('should reject empty marks', () => {
@@ -29,7 +27,7 @@ describe('Marks', () => {
   describe('code', () => {
     it('should create a valid code mark', () => {
       const m = marks().code();
-      expect(() => validateMark(m)).to.not.throw(ValidationError);
+      expect(docFromMark(m)).to.be.validADF();
       expect(m.toJSON()).to.deep.equal([{
         type: 'code'
       }]);
@@ -39,7 +37,7 @@ describe('Marks', () => {
   describe('em', () => {
     it('should create a valid em mark', () => {
       const m = marks().em();
-      expect(() => validateMark(m)).to.not.throw(ValidationError);
+      expect(docFromMark(m)).to.be.validADF();
       expect(m.toJSON()).to.deep.equal([{
         type: 'em'
       }]);
@@ -50,7 +48,7 @@ describe('Marks', () => {
 
     it('should create a valid link mark', () => {
       const m = marks().link('https://example.com');
-      expect(() => validateMark(m)).to.not.throw(ValidationError);
+      expect(docFromMark(m)).to.be.validADF();
       expect(m.toJSON()).to.deep.equal([{
         type: 'link',
         attrs: {
@@ -61,7 +59,7 @@ describe('Marks', () => {
 
     it('should support an optional title', () => {
       const m = marks().link('https://example.com', 'Title');
-      expect(() => validateMark(m)).to.not.throw(ValidationError);
+      expect(docFromMark(m)).to.be.validADF();
       expect(m.toJSON()).to.deep.equal([{
         type: 'link',
         attrs: {
@@ -75,18 +73,17 @@ describe('Marks', () => {
   describe('strike', () => {
     it('should create a valid strike mark', () => {
       const m = marks().strike();
-      expect(() => validateMark(m)).to.not.throw(ValidationError);
+      expect(docFromMark(m)).to.be.validADF();
       expect(m.toJSON()).to.deep.equal([{
         type: 'strike'
       }]);
     });
   });
 
-
   describe('strong', () => {
     it('should create a valid strong mark', () => {
       const m = marks().strong();
-      expect(() => validateMark(m)).to.not.throw(ValidationError);
+      expect(docFromMark(m)).to.be.validADF();
       expect(m.toJSON()).to.deep.equal([{
         type: 'strong'
       }]);
@@ -97,7 +94,7 @@ describe('Marks', () => {
 
     it('should create a valid sub mark', () => {
       const m = marks().sub();
-      expect(() => validateMark(m)).to.not.throw(ValidationError);
+      expect(docFromMark(m)).to.be.validADF();
       expect(m.toJSON()).to.deep.equal([{
         type: 'subsup',
         attrs: {
@@ -108,7 +105,7 @@ describe('Marks', () => {
 
     it('should create a valid sup mark', () => {
       const m = marks().sup();
-      expect(() => validateMark(m)).to.not.throw(ValidationError);
+      expect(docFromMark(m)).to.be.validADF();
       expect(m.toJSON()).to.deep.equal([{
         type: 'subsup',
         attrs: {
@@ -123,7 +120,7 @@ describe('Marks', () => {
 
     it('should create a valid color mark', () => {
       const m = marks().color('#f0f0f0');
-      expect(() => validateMark(m)).to.not.throw(ValidationError);
+      expect(docFromMark(m)).to.be.validADF();
       expect(m.toJSON()).to.deep.equal([{
         type: 'textColor',
         attrs: {
@@ -141,7 +138,7 @@ describe('Marks', () => {
   describe('underline', () => {
     it('should create a valid underline mark', () => {
       const m = marks().underline();
-      expect(() => validateMark(m)).to.not.throw(ValidationError);
+      expect(docFromMark(m)).to.be.validADF();
       expect(m.toJSON()).to.deep.equal([{
         type: 'underline'
       }]);
@@ -152,7 +149,7 @@ describe('Marks', () => {
 
     it('should create a valid action mark', () => {
       const m = marks().action('Title', { key: 'key' });
-      expect(() => validateMark(m)).to.not.throw(ValidationError);
+      expect(docFromMark(m)).to.be.validADF();
       expect(m.toJSON()).to.deep.equal([{
         type: 'action',
         attrs: {
@@ -166,7 +163,7 @@ describe('Marks', () => {
 
     it('should create a valid action mark with receiver', () => {
       const m = marks().action('Title', { key: 'key', receiver: 'app' });
-      expect(() => validateMark(m)).to.not.throw(ValidationError);
+      expect(docFromMark(m)).to.be.validADF();
       expect(m.toJSON()).to.deep.equal([{
         type: 'action',
         attrs: {
@@ -180,9 +177,8 @@ describe('Marks', () => {
     });
 
     it('should create a valid action mark with parameters', () => {
-      const m = marks().action('Title', { key: 'key'}, {'key1': 'value1', 'key2': 'value2'} );
-      console.log(m.toJSON());
-      expect(() => validateMark(m)).to.not.throw(ValidationError);
+      const m = marks().action('Title', { key: 'key' }, { key1: 'value1', key2: 'value2' });
+      expect(docFromMark(m)).to.be.validADF();
       expect(m.toJSON()).to.deep.equal([{
         type: 'action',
         attrs: {
@@ -191,8 +187,8 @@ describe('Marks', () => {
             key: 'key'
           },
           parameters: {
-            'key1': 'value1',
-            'key2': 'value2'
+            key1: 'value1',
+            key2: 'value2'
           }
         }
       }]);

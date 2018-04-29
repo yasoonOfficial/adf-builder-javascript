@@ -1,15 +1,13 @@
-import { expect } from 'chai';
+import { expect, use } from 'chai';
 import { Document } from '../../index';
-import { validator, ValidationError, Validator } from '../../_specs/validate';
+import { adfValidator } from '../../_chai';
 import { Heading } from '../heading';
 
 describe('Heading', () => {
 
-  let validate: Validator;
-
   before(async function() {
     this.timeout(5000);
-    validate = await validator();
+    use(await adfValidator());
   });
 
   it('should not allow empty headings', () => {
@@ -32,7 +30,7 @@ describe('Heading', () => {
   it('should create a valid heading with text', () => {
     const doc = new Document();
     const head = doc.heading(1).text('Title');
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(head.toJSON()).to.deep.equal({
       type: 'heading',
       attrs: {
@@ -50,7 +48,7 @@ describe('Heading', () => {
   it('should create a valid heading with a link', () => {
     const doc = new Document();
     const head = doc.heading(1).link('Title', 'https://example.com');
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(head.toJSON()).to.deep.equal({
       type: 'heading',
       attrs: {

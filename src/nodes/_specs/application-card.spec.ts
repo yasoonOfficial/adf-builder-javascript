@@ -1,20 +1,18 @@
-import { expect } from 'chai';
+import { expect, use } from 'chai';
 import { Document } from '../../index';
-import { validator, ValidationError, Validator } from '../../_specs/validate';
+import { adfValidator } from '../../_chai';
 
 describe('Application Card', () => {
 
-  let validate: Validator;
-
   before(async function() {
     this.timeout(5000);
-    validate = await validator();
+    use(await adfValidator());
   });
 
   it('should set default text attribute to title', () => {
     const doc = new Document();
     const card = doc.applicationCard('Title');
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(card.toJSON()).to.deep.equal({
       type: 'applicationCard',
       attrs: {
@@ -30,7 +28,7 @@ describe('Application Card', () => {
   it('should allow to override the default text attribute', () => {
     const doc = new Document();
     const card = doc.applicationCard('Title', 'Other text');
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(card.toJSON()).to.deep.equal({
       type: 'applicationCard',
       attrs: {
@@ -48,7 +46,7 @@ describe('Application Card', () => {
     const card = doc
       .applicationCard('Title')
       .background('https://example.org/bg.png');
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(card.toJSON()).to.deep.equal({
       type: 'applicationCard',
       attrs: {
@@ -69,7 +67,7 @@ describe('Application Card', () => {
     const card = doc
       .applicationCard('Title')
       .collapsible(true);
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(card.toJSON()).to.deep.equal({
       type: 'applicationCard',
       attrs: {
@@ -87,7 +85,7 @@ describe('Application Card', () => {
     const card = doc
       .applicationCard('Title')
       .description('Some description');
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(card.toJSON()).to.deep.equal({
       type: 'applicationCard',
       attrs: {
@@ -108,7 +106,7 @@ describe('Application Card', () => {
     const card = doc
       .applicationCard('Title')
       .link('https://example.com/target');
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(card.toJSON()).to.deep.equal({
       type: 'applicationCard',
       attrs: {
@@ -130,7 +128,7 @@ describe('Application Card', () => {
     const card = doc
       .applicationCard('Title')
       .preview('https://example.com/preview');
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(card.toJSON()).to.deep.equal({
       type: 'applicationCard',
       attrs: {
@@ -165,7 +163,7 @@ describe('Application Card', () => {
       action.parameters({
         test: 100
       });
-      expect(() => validate(doc)).to.not.throw(ValidationError);
+      expect(doc).to.be.validADF();
       expect(action.toJSON()).to.deep.equal({
         title: 'Action',
         target: {
@@ -182,7 +180,7 @@ describe('Application Card', () => {
       const doc = new Document();
       const action = doc.applicationCard('Title').action();
       action.title('Action');
-      expect(() => validate(doc)).to.not.throw(ValidationError);
+      expect(doc).to.not.be.validADF();
       expect(() => doc.toJSON()).to.throw();
     });
 
@@ -192,7 +190,7 @@ describe('Application Card', () => {
       action.target({
         key: 'test'
       });
-      expect(() => validate(doc)).to.not.throw(ValidationError);
+      expect(doc).to.not.be.validADF();
       expect(() => doc.toJSON()).to.throw();
     });
   });
@@ -209,7 +207,7 @@ describe('Application Card', () => {
       const doc = new Document();
       const detail = doc.applicationCard('Title').detail();
       detail.title('Detail');
-      expect(() => validate(doc)).to.not.throw(ValidationError);
+      expect(doc).to.be.validADF();
       expect(detail.toJSON()).to.deep.equal({
         title: 'Detail'
       });
@@ -219,7 +217,7 @@ describe('Application Card', () => {
       const doc = new Document();
       const detail = doc.applicationCard('Title').detail();
       detail.text('Detail');
-      expect(() => validate(doc)).to.not.throw(ValidationError);
+      expect(doc).to.be.validADF();
       expect(detail.toJSON()).to.deep.equal({
         text: 'Detail'
       });
@@ -229,7 +227,7 @@ describe('Application Card', () => {
       const doc = new Document();
       const detail = doc.applicationCard('Title').detail();
       detail.badge({ value: 1 });
-      expect(() => validate(doc)).to.not.throw(ValidationError);
+      expect(doc).to.be.validADF();
       expect(detail.toJSON()).to.deep.equal({
         badge: {
           value: 1
@@ -241,7 +239,7 @@ describe('Application Card', () => {
       const doc = new Document();
       const detail = doc.applicationCard('Title').detail();
       detail.badge({ value: 1, appearance: 'primary' });
-      expect(() => validate(doc)).to.not.throw(ValidationError);
+      expect(doc).to.be.validADF();
       expect(detail.toJSON()).to.deep.equal({
         badge: {
           value: 1,
@@ -254,7 +252,7 @@ describe('Application Card', () => {
       const doc = new Document();
       const detail = doc.applicationCard('Title').detail();
       detail.badge({ value: 1, appearance: 'primary', max: 10 });
-      expect(() => validate(doc)).to.not.throw(ValidationError);
+      expect(doc).to.be.validADF();
       expect(detail.toJSON()).to.deep.equal({
         badge: {
           value: 1,
@@ -268,7 +266,7 @@ describe('Application Card', () => {
       const doc = new Document();
       const detail = doc.applicationCard('Title').detail();
       detail.badge({ value: 1, appearance: 'primary', max: 10 });
-      expect(() => validate(doc)).to.not.throw(ValidationError);
+      expect(doc).to.be.validADF();
       expect(detail.toJSON()).to.deep.equal({
         badge: {
           value: 1,
@@ -281,8 +279,8 @@ describe('Application Card', () => {
     it('should set the icon', () => {
       const doc = new Document();
       const detail = doc.applicationCard('Title').detail();
-      detail.icon({ url: 'https://example.com/icon.png', label: 'Icon'});
-      expect(() => validate(doc)).to.not.throw(ValidationError);
+      detail.icon({ url: 'https://example.com/icon.png', label: 'Icon' });
+      expect(doc).to.be.validADF();
       expect(detail.toJSON()).to.deep.equal({
         icon: {
           url: 'https://example.com/icon.png',
@@ -294,8 +292,8 @@ describe('Application Card', () => {
     it('should set the lozenge text attribute', () => {
       const doc = new Document();
       const detail = doc.applicationCard('Title').detail();
-      detail.lozenge({ text: 'Loz'});
-      expect(() => validate(doc)).to.not.throw(ValidationError);
+      detail.lozenge({ text: 'Loz' });
+      expect(doc).to.be.validADF();
       expect(detail.toJSON()).to.deep.equal({
         lozenge: {
           text: 'Loz'
@@ -306,8 +304,8 @@ describe('Application Card', () => {
     it('should set the lozenge appearance attribute', () => {
       const doc = new Document();
       const detail = doc.applicationCard('Title').detail();
-      detail.lozenge({ text: 'Loz', appearance: 'new'});
-      expect(() => validate(doc)).to.not.throw(ValidationError);
+      detail.lozenge({ text: 'Loz', appearance: 'new' });
+      expect(doc).to.be.validADF();
       expect(detail.toJSON()).to.deep.equal({
         lozenge: {
           text: 'Loz',
@@ -319,8 +317,8 @@ describe('Application Card', () => {
     it('should set the lozenge bold attribute', () => {
       const doc = new Document();
       const detail = doc.applicationCard('Title').detail();
-      detail.lozenge({ text: 'Loz', appearance: 'new', bold: true});
-      expect(() => validate(doc)).to.not.throw(ValidationError);
+      detail.lozenge({ text: 'Loz', appearance: 'new', bold: true });
+      expect(doc).to.be.validADF();
       expect(detail.toJSON()).to.deep.equal({
         lozenge: {
           text: 'Loz',
@@ -334,14 +332,14 @@ describe('Application Card', () => {
       const doc = new Document();
       const detail = doc.applicationCard('Title').detail();
       detail.user({
-        icon: { url: 'https://example.com/user.png', label: 'user'},
+        icon: { url: 'https://example.com/user.png', label: 'user' },
         id: '123'
       });
-      expect(() => validate(doc)).to.not.throw(ValidationError);
+      expect(doc).to.be.validADF();
       expect(detail.toJSON()).to.deep.equal({
         users: [
           {
-            icon: { url: 'https://example.com/user.png', label: 'user'},
+            icon: { url: 'https://example.com/user.png', label: 'user' },
             id: '123'
           }
         ]
@@ -352,22 +350,22 @@ describe('Application Card', () => {
       const doc = new Document();
       const detail = doc.applicationCard('Title').detail();
       detail.user({
-        icon: { url: 'https://example.com/user1.png', label: 'user1'},
+        icon: { url: 'https://example.com/user1.png', label: 'user1' },
         id: '123'
       });
       detail.user({
-        icon: { url: 'https://example.com/user2.png', label: 'user2'},
+        icon: { url: 'https://example.com/user2.png', label: 'user2' },
         id: '124'
       });
-      expect(() => validate(doc)).to.not.throw(ValidationError);
+      expect(doc).to.be.validADF();
       expect(detail.toJSON()).to.deep.equal({
         users: [
           {
-            icon: { url: 'https://example.com/user1.png', label: 'user1'},
+            icon: { url: 'https://example.com/user1.png', label: 'user1' },
             id: '123'
           },
           {
-            icon: { url: 'https://example.com/user2.png', label: 'user2'},
+            icon: { url: 'https://example.com/user2.png', label: 'user2' },
             id: '124'
           }
         ]
@@ -380,7 +378,7 @@ describe('Application Card', () => {
     it('should set the text attribute', () => {
       const doc = new Document();
       const context = doc.applicationCard('Title').context('Context');
-      expect(() => validate(doc)).to.not.throw(ValidationError);
+      expect(doc).to.be.validADF();
       expect(context.toJSON()).to.deep.equal({
         text: 'Context'
       });
@@ -389,8 +387,8 @@ describe('Application Card', () => {
     it('should set the icon', () => {
       const doc = new Document();
       const context = doc.applicationCard('Title').context('Context');
-      context.icon({ url: 'https://example.com/icon.png', label: 'Icon'});
-      expect(() => validate(doc)).to.not.throw(ValidationError);
+      context.icon({ url: 'https://example.com/icon.png', label: 'Icon' });
+      expect(doc).to.be.validADF();
       expect(context.toJSON()).to.deep.equal({
         text: 'Context',
         icon: {
@@ -406,8 +404,8 @@ describe('Application Card', () => {
     it('should set the title user without id', () => {
       const doc = new Document();
       const card = doc.applicationCard('Title');
-      card.titleUser({url: 'https://example.com/icon.png', label: 'Icon'});
-      expect(() => validate(doc)).to.not.throw(ValidationError);
+      card.titleUser({ url: 'https://example.com/icon.png', label: 'Icon' });
+      expect(doc).to.be.validADF();
       expect(card.toJSON()).to.deep.equal({
         type: 'applicationCard',
         attrs: {
@@ -429,9 +427,9 @@ describe('Application Card', () => {
     it('should set the title user with id', () => {
       const doc = new Document();
       const card = doc.applicationCard('Title');
-      card.titleUser({url: 'https://example.com/icon.png', label: 'Icon'})
+      card.titleUser({ url: 'https://example.com/icon.png', label: 'Icon' })
         .id('abc');
-      expect(() => validate(doc)).to.not.throw(ValidationError);
+      expect(doc).to.be.validADF();
       expect(card.toJSON()).to.deep.equal({
         type: 'applicationCard',
         attrs: {

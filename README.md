@@ -1,5 +1,8 @@
 # Atlassian Document Format Builder (JavaScript)
 
+[![npm](https://img.shields.io/npm/v/adf-builder.svg)](https://www.npmjs.com/package/adf-builder)
+[![npm](https://img.shields.io/bitbucket/pipelines/atlassian/adf-builder-javascript.svg)](https://bitbucket.org/atlassian/adf-builder-javascript/addon/pipelines/home#!/)
+
 A library that simplifies building documents that follow the Atlassian Document Format structure.
 
 ## Installation
@@ -137,7 +140,3 @@ const list = doc.bulletList();
 list.item().paragraph().text('a'); // add more to the paragraph
 list.item().paragraph().text('b'); // add more to the paragraph
 ```
-
-## Contributing
-
-TBD

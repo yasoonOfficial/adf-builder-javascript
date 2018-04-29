@@ -1,21 +1,19 @@
-import { expect } from 'chai';
+import { expect, use } from 'chai';
 import { code, document, em, emoji, link, mention, strike, strong, ApplicationCard } from '../index';
-import { validator, ValidationError, Validator } from './validate';
+import { adfValidator } from '../_chai';
 
 describe('Template Tag', () => {
 
-  let validate: Validator;
-
   before(async function() {
     this.timeout(5000);
-    validate = await validator();
+    use(await adfValidator());
   });
 
   it('should support simple strings', () => {
 
     const doc = document`Hello`;
 
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(doc.toJSON()).to.deep.equal({
       type: 'doc',
       version: 1,
@@ -37,7 +35,7 @@ describe('Template Tag', () => {
 
     const doc = document`Result: ${1 + 1}`;
 
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(doc.toJSON()).to.deep.equal({
       type: 'doc',
       version: 1,
@@ -63,7 +61,7 @@ describe('Template Tag', () => {
 
     const doc = document`A ${strike('strike')} statement`;
 
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(doc.toJSON()).to.deep.equal({
       type: 'doc',
       version: 1,
@@ -98,7 +96,7 @@ describe('Template Tag', () => {
 
     const doc = document`A ${strong('strong')} statement`;
 
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(doc.toJSON()).to.deep.equal({
       type: 'doc',
       version: 1,
@@ -133,7 +131,7 @@ describe('Template Tag', () => {
 
     const doc = document`A ${em('emphasized')} statement`;
 
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(doc.toJSON()).to.deep.equal({
       type: 'doc',
       version: 1,
@@ -168,7 +166,7 @@ describe('Template Tag', () => {
 
     const doc = document`A ${code('code')} statement`;
 
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(doc.toJSON()).to.deep.equal({
       type: 'doc',
       version: 1,
@@ -203,7 +201,7 @@ describe('Template Tag', () => {
 
     const doc = document`A ${link('linked', 'https://example.com')} statement`;
 
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(doc.toJSON()).to.deep.equal({
       type: 'doc',
       version: 1,
@@ -241,7 +239,7 @@ describe('Template Tag', () => {
 
     const doc = document`A ${mention('123', 'name')}`;
 
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(doc.toJSON()).to.deep.equal({
       type: 'doc',
       version: 1,
@@ -270,7 +268,7 @@ describe('Template Tag', () => {
 
     const doc = document`A ${emoji('smile')}`;
 
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(doc.toJSON()).to.deep.equal({
       type: 'doc',
       version: 1,
@@ -301,7 +299,7 @@ describe('Template Tag', () => {
     It also contains ${link('a link', 'http://example.com')}.
     Other replacements work, too: ${5}`;
 
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
   });
 
   it('should support skip empty string substitutions', () => {
@@ -340,7 +338,7 @@ describe('Template Tag', () => {
 
   it('should handle substitutions at the beginning', () => {
     const doc = document`${emoji('smile')} A`;
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(doc.toJSON()).to.deep.equal({
       type: 'doc',
       version: 1,
