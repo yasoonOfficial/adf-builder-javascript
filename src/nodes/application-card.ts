@@ -156,6 +156,28 @@ export class Context {
   }
 }
 
+export class TitleUser {
+  private titleUserId?: string;
+
+  public constructor(private titleUserIcon: Icon) {
+  }
+
+  public id(id: string): this {
+    this.titleUserId = id;
+    return this;
+  }
+
+  public toJSON() {
+    const titleUser: any = {
+      icon: this.titleUserIcon
+    };
+    if (this.titleUserId) {
+      titleUser.id = this.titleUserId;
+    }
+    return titleUser;
+  }
+}
+
 export class ApplicationCard extends TopLevelNode {
 
   private linkUrl: string;
@@ -163,6 +185,7 @@ export class ApplicationCard extends TopLevelNode {
   private previewUrl: string;
   private isCollapsible: boolean = false;
   private descriptionText: string;
+  private userInTitle: TitleUser;
 
   private details: Detail[] = [];
   private actions: Action[] = [];
@@ -197,6 +220,12 @@ export class ApplicationCard extends TopLevelNode {
   public description(text: string): this {
     this.descriptionText = text;
     return this;
+  }
+
+  public titleUser(icon: Icon): TitleUser {
+    const titleUser = new TitleUser(icon);
+    this.userInTitle = titleUser;
+    return titleUser;
   }
 
   public detail(): Detail {
@@ -247,6 +276,9 @@ export class ApplicationCard extends TopLevelNode {
       card.attrs.description = {
         text: this.descriptionText
       };
+    }
+    if (this.userInTitle) {
+      card.attrs.title.user = this.userInTitle.toJSON();
     }
     if (this.details.length > 0) {
       card.attrs.details = this.details.map(detail => detail.toJSON());

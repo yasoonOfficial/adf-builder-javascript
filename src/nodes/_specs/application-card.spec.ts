@@ -400,4 +400,57 @@ describe('Application Card', () => {
       });
     });
   });
+
+  describe('title user', () => {
+
+    it('should set the title user without id', () => {
+      const doc = new Document();
+      const card = doc.applicationCard('Title');
+      card.titleUser({url: 'https://example.com/icon.png', label: 'Icon'});
+      expect(() => validate(doc)).to.not.throw(ValidationError);
+      expect(card.toJSON()).to.deep.equal({
+        type: 'applicationCard',
+        attrs: {
+          collapsible: false,
+          text: 'Title',
+          title: {
+            text: 'Title',
+            user: {
+              icon: {
+                url: 'https://example.com/icon.png',
+                label: 'Icon'
+              }
+            }
+          }
+        }
+      });
+    });
+
+    it('should set the title user with id', () => {
+      const doc = new Document();
+      const card = doc.applicationCard('Title');
+      card.titleUser({url: 'https://example.com/icon.png', label: 'Icon'})
+        .id('abc');
+      expect(() => validate(doc)).to.not.throw(ValidationError);
+      expect(card.toJSON()).to.deep.equal({
+        type: 'applicationCard',
+        attrs: {
+          collapsible: false,
+          text: 'Title',
+          title: {
+            text: 'Title',
+            user: {
+              icon: {
+                url: 'https://example.com/icon.png',
+                label: 'Icon'
+              },
+              id: 'abc'
+            }
+          }
+        }
+      });
+    });
+
+  });
+
 });
