@@ -1,6 +1,6 @@
 {
   "name": "adf-builder",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "Atlassian Document Format Builder",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -31,7 +31,10 @@
   },
   "nyc": {
     "include": "src/**/*.ts",
-    "exclude": ["src/**/_specs", "src/_chai"],
+    "exclude": [
+      "src/**/_specs",
+      "src/_chai"
+    ],
     "extension": ".ts",
     "require": "ts-node/register"
   }
