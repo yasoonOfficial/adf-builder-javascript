@@ -93,7 +93,9 @@ describe('Bullet List', () => {
     it('should create a nested bullet list', () => {
       const doc = new Document();
       const list = doc.bulletList();
-      list.item().bulletList().item().paragraph().text('nested');
+      const item = list.item();
+      item.paragraph().text('line 1');
+      item.bulletList().item().paragraph().text('nested');
       expect(doc).to.be.validADF();
       expect(list.toJSON()).to.deep.equal({
         type: 'bulletList',
@@ -101,6 +103,10 @@ describe('Bullet List', () => {
           {
             type: 'listItem',
             content: [
+              {
+                type: 'paragraph',
+                content: [{ type: 'text', text: 'line 1' }]
+              },
               {
                 type: 'bulletList',
                 content: [
@@ -120,7 +126,9 @@ describe('Bullet List', () => {
     it('should create a nested ordered list', () => {
       const doc = new Document();
       const list = doc.bulletList();
-      list.item().orderedList().item().paragraph().text('nested');
+      const item = list.item();
+      item.paragraph().text('line 1');
+      item.orderedList().item().paragraph().text('nested');
       expect(doc).to.be.validADF();
       expect(list.toJSON()).to.deep.equal({
         type: 'bulletList',
@@ -128,6 +136,10 @@ describe('Bullet List', () => {
           {
             type: 'listItem',
             content: [
+              {
+                type: 'paragraph',
+                content: [{ type: 'text', text: 'line 1' }]
+              },
               {
                 type: 'orderedList',
                 content: [
