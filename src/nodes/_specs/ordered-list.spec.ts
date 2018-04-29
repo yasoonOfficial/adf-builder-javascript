@@ -1,14 +1,12 @@
-import { expect } from 'chai';
+import { expect, use } from 'chai';
 import { Document } from '../../index';
-import { validator, ValidationError, Validator } from '../../_specs/validate';
+import { adfValidator } from '../../_chai';
 
 describe('Ordered List', () => {
 
-  let validate: Validator;
-
   before(async function() {
     this.timeout(5000);
-    validate = await validator();
+    use(await adfValidator());
   });
 
   it('should not allow empty ordered lists', () => {
@@ -29,7 +27,7 @@ describe('Ordered List', () => {
       const doc = new Document();
       const list = doc.orderedList();
       list.item().paragraph().text('item');
-      expect(() => validate(doc)).to.not.throw(ValidationError);
+      expect(doc).to.be.validADF();
       expect(list.toJSON()).to.deep.equal({
         type: 'orderedList',
         content: [
@@ -56,7 +54,7 @@ describe('Ordered List', () => {
       const list = doc.orderedList();
       list.item().paragraph().text('item1');
       list.item().paragraph().text('item2');
-      expect(() => validate(doc)).to.not.throw(ValidationError);
+      expect(doc).to.be.validADF();
       expect(list.toJSON()).to.deep.equal({
         type: 'orderedList',
         content: [
@@ -96,7 +94,7 @@ describe('Ordered List', () => {
       const doc = new Document();
       const list = doc.orderedList();
       list.item().bulletList().item().paragraph().text('nested');
-      expect(() => validate(doc)).to.not.throw(ValidationError);
+      expect(doc).to.be.validADF();
       expect(list.toJSON()).to.deep.equal({
         type: 'orderedList',
         content: [
@@ -123,7 +121,7 @@ describe('Ordered List', () => {
       const doc = new Document();
       const list = doc.orderedList();
       list.item().orderedList().item().paragraph().text('nested');
-      expect(() => validate(doc)).to.not.throw(ValidationError);
+      expect(doc).to.be.validADF();
       expect(list.toJSON()).to.deep.equal({
         type: 'orderedList',
         content: [
@@ -154,7 +152,7 @@ describe('Ordered List', () => {
       list
         .textItem('item1')
         .textItem('item2');
-      expect(() => validate(doc)).to.not.throw(ValidationError);
+      expect(doc).to.be.validADF();
       expect(list.toJSON()).to.deep.equal({
         type: 'orderedList',
         content: [
@@ -198,7 +196,7 @@ describe('Ordered List', () => {
       list
         .linkItem('Link 1', 'https://example.com/1')
         .linkItem('Link 2', 'https://example.com/2');
-      expect(() => validate(doc)).to.not.throw(ValidationError);
+      expect(doc).to.be.validADF();
       expect(list.toJSON()).to.deep.equal({
         type: 'orderedList',
         content: [

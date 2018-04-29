@@ -28,8 +28,8 @@ export interface ActionTarget {
 }
 
 export class Action {
-  private actionTitle: string;
-  private actionTarget: ActionTarget;
+  private actionTitle?: string;
+  private actionTarget?: ActionTarget;
   private actionParameters?: object;
 
   public title(title: string): this {
@@ -70,11 +70,11 @@ export class Action {
 
 export class Detail {
 
-  private detailTitle: string;
-  private detailText: string;
-  private detailLozenge: DetailLozenge;
-  private detailIcon: Icon;
-  private detailBadge: DetailBadge;
+  private detailTitle?: string;
+  private detailText?: string;
+  private detailLozenge?: DetailLozenge;
+  private detailIcon?: Icon;
+  private detailBadge?: DetailBadge;
   private detailUsers: DetailUser[] = [];
 
   public title(text: string): this {
@@ -135,7 +135,8 @@ export class Detail {
 }
 
 export class Context {
-  private contextIcon: Icon;
+
+  private contextIcon?: Icon;
 
   public constructor(private text: string) {
   }
@@ -180,16 +181,16 @@ export class TitleUser {
 
 export class ApplicationCard extends TopLevelNode {
 
-  private linkUrl: string;
-  private backgroundUrl: string;
-  private previewUrl: string;
+  private linkUrl?: string;
+  private backgroundUrl?: string;
+  private previewUrl?: string;
   private isCollapsible: boolean = false;
-  private descriptionText: string;
-  private userInTitle: TitleUser;
+  private descriptionText?: string;
+  private userInTitle?: TitleUser;
 
   private details: Detail[] = [];
   private actions: Action[] = [];
-  private cardContext: Context;
+  private cardContext?: Context;
 
   constructor(
     private readonly title: string,

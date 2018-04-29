@@ -1,22 +1,20 @@
-import { expect } from 'chai';
+import { expect, use } from 'chai';
 import { Document } from '../../index';
 import { marks } from '../../marks';
-import { validator, ValidationError, Validator } from '../../_specs/validate';
+import { adfValidator } from '../../_chai';
 import { code, em, link, plain, strike, strong, Text } from '../text';
 
 describe('Text', () => {
 
-  let validate: Validator;
-
-  function validateText(text: Text) {
+  function docFromText(text: Text) {
     const doc = new Document();
     doc.paragraph().add(text);
-    validate(doc);
+    return doc;
   }
 
   before(async function() {
     this.timeout(5000);
-    validate = await validator();
+    use(await adfValidator());
   });
 
   it('should contain at least one character', () => {
@@ -25,7 +23,7 @@ describe('Text', () => {
 
   it('should create valid text node', () => {
     const text = new Text('some text');
-    expect(() => validateText(text)).to.not.throw(ValidationError);
+    expect(docFromText(text)).to.be.validADF();
     expect(text.toJSON()).to.deep.equal({
       type: 'text',
       text: 'some text'
@@ -39,7 +37,7 @@ describe('Text', () => {
 
   it('should support a single mark', () => {
     const text = new Text('some text', marks().strong());
-    expect(() => validateText(text)).to.not.throw(ValidationError);
+    expect(docFromText(text)).to.be.validADF();
     expect(text.toJSON()).to.deep.equal({
       type: 'text',
       text: 'some text',
@@ -51,7 +49,7 @@ describe('Text', () => {
 
   it('should support multiple marks', () => {
     const text = new Text('some text', marks().strong().em().underline());
-    expect(() => validateText(text)).to.not.throw(ValidationError);
+    expect(docFromText(text)).to.be.validADF();
     expect(text.toJSON()).to.deep.equal({
       type: 'text',
       text: 'some text',
@@ -66,7 +64,7 @@ describe('Text', () => {
   describe('plain', () => {
     it('should create a plain text node', () => {
       const text = plain('some text');
-      expect(() => validateText(text)).to.not.throw(ValidationError);
+      expect(docFromText(text)).to.be.validADF();
       expect(text.toJSON()).to.deep.equal({
         type: 'text',
         text: 'some text'
@@ -77,7 +75,7 @@ describe('Text', () => {
   describe('strike', () => {
     it('should create a text node with a strike mark', () => {
       const text = strike('some text');
-      expect(() => validateText(text)).to.not.throw(ValidationError);
+      expect(docFromText(text)).to.be.validADF();
       expect(text.toJSON()).to.deep.equal({
         type: 'text',
         text: 'some text',
@@ -91,7 +89,7 @@ describe('Text', () => {
   describe('strong', () => {
     it('should create a text node with a strong mark', () => {
       const text = strong('some text');
-      expect(() => validateText(text)).to.not.throw(ValidationError);
+      expect(docFromText(text)).to.be.validADF();
       expect(text.toJSON()).to.deep.equal({
         type: 'text',
         text: 'some text',
@@ -105,7 +103,7 @@ describe('Text', () => {
   describe('em', () => {
     it('should create a text node with a em mark', () => {
       const text = em('some text');
-      expect(() => validateText(text)).to.not.throw(ValidationError);
+      expect(docFromText(text)).to.be.validADF();
       expect(text.toJSON()).to.deep.equal({
         type: 'text',
         text: 'some text',
@@ -119,7 +117,7 @@ describe('Text', () => {
   describe('link', () => {
     it('should create a text node with a link mark', () => {
       const text = link('some text', 'https://example.com');
-      expect(() => validateText(text)).to.not.throw(ValidationError);
+      expect(docFromText(text)).to.be.validADF();
       expect(text.toJSON()).to.deep.equal({
         type: 'text',
         text: 'some text',
@@ -138,7 +136,7 @@ describe('Text', () => {
   describe('code', () => {
     it('should create a text node with a code mark', () => {
       const text = code('some text');
-      expect(() => validateText(text)).to.not.throw(ValidationError);
+      expect(docFromText(text)).to.be.validADF();
       expect(text.toJSON()).to.deep.equal({
         type: 'text',
         text: 'some text',

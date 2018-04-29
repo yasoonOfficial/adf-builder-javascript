@@ -1,14 +1,12 @@
-import { expect } from 'chai';
+import { expect, use } from 'chai';
 import { Document } from '../../index';
-import { validator, ValidationError, Validator } from '../../_specs/validate';
+import { adfValidator } from '../../_chai';
 
 describe('Decision List', () => {
 
-  let validate: Validator;
-
   before(async function() {
     this.timeout(5000);
-    validate = await validator();
+    use(await adfValidator());
   });
 
   it('should not allow empty decision lists', () => {
@@ -21,7 +19,7 @@ describe('Decision List', () => {
     const doc = new Document();
     const list = doc.decisionList('1');
     list.decision('2', 'done').text('DACI');
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(list.toJSON()).to.deep.equal({
       type: 'decisionList',
       attrs: {
@@ -50,7 +48,7 @@ describe('Decision List', () => {
     const list = doc.decisionList('1');
     list.decision('2', 'done').text('DACI 2');
     list.decision('3', 'open').text('DACI 3');
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(list.toJSON()).to.deep.equal({
       type: 'decisionList',
       attrs: {

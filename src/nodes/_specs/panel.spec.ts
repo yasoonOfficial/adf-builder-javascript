@@ -1,14 +1,12 @@
-import { expect } from 'chai';
+import { expect, use } from 'chai';
 import { Document } from '../../index';
-import { validator, ValidationError, Validator } from '../../_specs/validate';
+import { adfValidator } from '../../_chai';
 
 describe('Panel', () => {
 
-  let validate: Validator;
-
   before(async function() {
     this.timeout(5000);
-    validate = await validator();
+    use(await adfValidator());
   });
 
   it('should not allow empty panel', () => {
@@ -21,7 +19,7 @@ describe('Panel', () => {
     const doc = new Document();
     const panel = doc.panel('info');
     panel.paragraph().text('Info');
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(panel.toJSON()).to.deep.equal({
       type: 'panel',
       attrs: {
@@ -42,7 +40,7 @@ describe('Panel', () => {
     const doc = new Document();
     const panel = doc.panel('warning');
     panel.heading(2).link('Heading', '');
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(panel.toJSON()).to.deep.equal({
       type: 'panel',
       attrs: {
@@ -77,7 +75,7 @@ describe('Panel', () => {
     const doc = new Document();
     const panel = doc.panel('tip');
     panel.bulletList().textItem('a');
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(panel.toJSON()).to.deep.equal({
       type: 'panel',
       attrs: {
@@ -111,7 +109,7 @@ describe('Panel', () => {
     const doc = new Document();
     const panel = doc.panel('note');
     panel.orderedList().textItem('a');
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(panel.toJSON()).to.deep.equal({
       type: 'panel',
       attrs: {

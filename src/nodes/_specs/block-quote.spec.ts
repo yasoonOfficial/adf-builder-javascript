@@ -1,14 +1,12 @@
-import { expect } from 'chai';
+import { expect, use } from 'chai';
 import { Document } from '../../index';
-import { validator, ValidationError, Validator } from '../../_specs/validate';
+import { adfValidator } from '../../_chai';
 
 describe('Block Quote', () => {
 
-  let validate: Validator;
-
   before(async function() {
     this.timeout(5000);
-    validate = await validator();
+    use(await adfValidator());
   });
 
   it('should not allow empty block quotes', () => {
@@ -21,7 +19,7 @@ describe('Block Quote', () => {
     const doc = new Document();
     const quote = doc.blockQuote();
     quote.paragraph().text('quoted');
-    expect(() => validate(doc)).to.not.throw(ValidationError);
+    expect(doc).to.be.validADF();
     expect(quote.toJSON()).to.deep.equal({
       type: 'blockquote',
       content: [
