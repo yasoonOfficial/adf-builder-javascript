@@ -30,7 +30,7 @@ doc.paragraph()
   .text('See the ')
   .link('documention', 'https://example.com')
   .text(' ')
-  .emoji('smile');
+  .emoji(':smile:');
 ```
 
 ### Tagged Template Literals
@@ -39,7 +39,7 @@ doc.paragraph()
 import { document, emoji, link } from 'adf-builder'; // For TypeScript or ES6
 // const { document, emoji, link } = require('adf-builder'); // For node/commonjs
 
-const doc = document`See the ${link('documentation', 'https://example.com')} ${emoji('smile')}`;
+const doc = document`See the ${link('documentation', 'https://example.com')} ${emoji(':smile:')}`;
 ```
 
 ### Serialization
