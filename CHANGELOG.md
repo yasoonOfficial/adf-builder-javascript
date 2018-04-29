@@ -2,8 +2,18 @@
 
 ## 3.2.0
 
+* Merged #10: Support for user in application card title
+* Merged #7: Doc update: colons around emoji names
+* Upgraded dependencies
+* Use `better-ajv-errors` for tests against ADF schema
 
 ## 3.1.0
+
+* Added `strike` mark for text node
+
+## 3.0.1
+
+* Added action mark parameters
 
 ## 3.0.0
 
