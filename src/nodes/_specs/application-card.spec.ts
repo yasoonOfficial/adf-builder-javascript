@@ -184,6 +184,16 @@ describe('Application Card', () => {
       expect(() => doc.toJSON()).to.throw();
     });
 
+    it('should fail when target key is missing', () => {
+      const doc = new Document();
+      const action = doc.applicationCard('Title').action();
+      action.title('Action');
+      // @ts-ignore
+      expect(() => action.target({
+        receiver: 'app'
+      })).to.throw();
+    });
+
     it('should fail when title is missing', () => {
       const doc = new Document();
       const action = doc.applicationCard('Title').action();
