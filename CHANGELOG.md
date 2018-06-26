@@ -1,9 +1,13 @@
 # Change Log
 
+## 3.3.0
+
+ * #12: Added support for Tasks and TaskLists
+
 ## 3.2.0
 
-* Merged #10: Support for user in application card title
-* Merged #7: Doc update: colons around emoji names
+* #10: Support for user in application card title
+* #7: Doc update: colons around emoji names
 * Upgraded dependencies
 * Use `better-ajv-errors` for tests against ADF schema
 
