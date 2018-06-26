@@ -2,12 +2,12 @@
 
 ## 3.3.0
 
- * #12: Added support for Tasks and TaskLists
+ * PR #12: Added support for Tasks and TaskLists
 
 ## 3.2.0
 
-* #10: Support for user in application card title
-* #7: Doc update: colons around emoji names
+* PR #10: Support for user in application card title
+* PR #7: Doc update: colons around emoji names
 * Upgraded dependencies
 * Use `better-ajv-errors` for tests against ADF schema
 
