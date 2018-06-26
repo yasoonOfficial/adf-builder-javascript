@@ -18,6 +18,8 @@ export * from './nodes/ordered-list';
 export * from './nodes/panel';
 export * from './nodes/paragraph';
 export * from './nodes/rule';
+export * from './nodes/task-list';
+export * from './nodes/task';
 export * from './nodes/text';
 
 export * from './marks';
