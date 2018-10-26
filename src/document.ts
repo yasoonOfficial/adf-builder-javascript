@@ -10,6 +10,7 @@ import { OrderedList } from './nodes/ordered-list';
 import { Panel, PanelType } from './nodes/panel';
 import { Paragraph } from './nodes/paragraph';
 import { Rule } from './nodes/rule';
+import { Table } from './nodes/table';
 import { TaskList } from './nodes/task-list';
 
 export interface DocumentAttributes {
@@ -73,8 +74,12 @@ export class Document {
     return this;
   }
 
+  public table(): Table {
+    return this.content.add(new Table());
+  }
+
   public taskList(localId: string): TaskList {
-    return this.content.add(new TaskList(localId))
+    return this.content.add(new TaskList(localId));
   }
 
   public toJSON(): Typed {
