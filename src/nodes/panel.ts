@@ -8,7 +8,7 @@ export type PanelType = 'info' | 'note' | 'tip' | 'warning';
 
 export class Panel extends TopLevelNode {
 
-  private content = new ContentNode<TopLevelNode>('panel');
+  public content = new ContentNode<TopLevelNode>('panel');
 
   constructor(
     private readonly panelType: PanelType) {

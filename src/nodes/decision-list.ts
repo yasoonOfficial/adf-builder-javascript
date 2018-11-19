@@ -3,7 +3,7 @@ import { ContentNode, TopLevelNode, Typed } from './index';
 
 export class DecisionList extends TopLevelNode {
 
-  private content = new ContentNode<Decision>('decisionList');
+  public content = new ContentNode<Decision>('decisionList');
 
   constructor(
     private readonly localId: string) {

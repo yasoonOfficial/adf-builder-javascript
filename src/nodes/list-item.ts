@@ -5,7 +5,7 @@ import { Paragraph } from './paragraph';
 
 export class ListItem {
 
-  private content = new ContentNode<TopLevelNode>('listItem');
+  public content = new ContentNode<TopLevelNode>('listItem');
 
   public paragraph(): Paragraph {
     return this.content.add(new Paragraph());

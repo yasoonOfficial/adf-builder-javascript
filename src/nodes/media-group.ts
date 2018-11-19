@@ -3,7 +3,7 @@ import { Media, MediaAttributes } from './media';
 
 export class MediaGroup extends TopLevelNode {
 
-  private content = new ContentNode<Media>('mediaGroup');
+  public content = new ContentNode<Media>('mediaGroup');
 
   public media(attrs: MediaAttributes): this {
     this.content.add(new Media(attrs));

@@ -3,7 +3,7 @@ import { plain, Text } from './text';
 
 export class CodeBlock extends TopLevelNode {
 
-  private content = new ContentNode<Text>('codeBlock');
+  public content = new ContentNode<Text>('codeBlock');
 
   constructor(
     private readonly language?: string) {

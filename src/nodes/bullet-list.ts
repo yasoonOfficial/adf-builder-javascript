@@ -4,7 +4,7 @@ import { ListItem } from './list-item';
 
 export class BulletList extends TopLevelNode {
 
-  private content = new ContentNode<ListItem>('bulletList');
+  public content = new ContentNode<ListItem>('bulletList');
 
   public item(): ListItem {
     return this.content.add(new ListItem());

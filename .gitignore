@@ -57,9 +57,10 @@ typings/
 # dotenv environment variables file
 .env
 
-# Project-specific
-dist/
 
 # OS X
 
 .DS_Store
+
+# IntelliJ platform
+.idea/

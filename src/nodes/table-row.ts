@@ -4,14 +4,19 @@ import { TableHeader } from './table-header';
 
 export class TableRow {
 
-  private content = new ContentNode<TableHeader | TableCell>('tableRow');
+  public content = new ContentNode<TableHeader | TableCell>('tableRow');
 
-  public cell(): TableCell {
-    return this.content.add(new TableCell());
+  public cell(backgroundColor?: string): TableCell {
+    return this.content.add(new TableCell(backgroundColor));
   }
 
-  public header(): TableHeader {
-    return this.content.add(new TableHeader());
+  public header(backgroundColor?: string): TableHeader {
+    return this.content.add(new TableHeader(backgroundColor));
+  }
+
+  public add(node: TableCell | TableHeader): this {
+    this.content.add(node);
+    return this;
   }
 
   public toJSON(): Typed {

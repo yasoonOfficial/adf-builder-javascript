@@ -7,7 +7,7 @@ import { code, em, link, strong, Text } from './text';
 
 export class Paragraph extends TopLevelNode {
 
-  private content = new ContentNode<InlineNode>('paragraph');
+  public content = new ContentNode<InlineNode>('paragraph');
 
   public text(text: string, marks?: Marks): this {
     return this.add(new Text(text, marks));

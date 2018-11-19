@@ -3,10 +3,15 @@ import { TableRow } from './table-row';
 
 export class Table extends TopLevelNode {
 
-  private content = new ContentNode<TableRow>('table');
+  public content = new ContentNode<TableRow>('table');
 
   public row(): TableRow {
     return this.content.add(new TableRow());
+  }
+
+  public add(node: TableRow): this {
+    this.content.add(node);
+    return this;
   }
 
   public toJSON(): Typed {

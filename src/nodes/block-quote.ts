@@ -3,7 +3,7 @@ import { Paragraph } from './paragraph';
 
 export class BlockQuote extends TopLevelNode {
 
-  private content = new ContentNode<Paragraph>('blockquote');
+  public content = new ContentNode<Paragraph>('blockquote');
 
   public paragraph(): Paragraph {
     return this.content.add(new Paragraph());

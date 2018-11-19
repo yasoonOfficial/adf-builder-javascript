@@ -7,7 +7,7 @@ import { code, em, link, strike, strong, Text } from './text';
 
 export class Task {
 
-  private content = new ContentNode<InlineNode>('taskItem');
+  public content = new ContentNode<InlineNode>('taskItem');
 
   constructor(
     private readonly localId: string,
@@ -67,6 +67,6 @@ export class Task {
 }
 
 export enum TaskState {
-  TODO = "TODO",
-  DONE = "DONE"
+  TODO = 'TODO',
+  DONE = 'DONE'
 }

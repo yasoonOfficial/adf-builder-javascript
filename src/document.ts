@@ -19,7 +19,7 @@ export interface DocumentAttributes {
 
 export class Document {
 
-  private content = new ContentNode<TopLevelNode>('doc');
+  public content = new ContentNode<TopLevelNode>('doc');
 
   constructor(
     private readonly attrs: DocumentAttributes = { version: 1 }) {

@@ -3,7 +3,7 @@ import { link, plain, Text } from './text';
 
 export class Heading extends TopLevelNode {
 
-  private content = new ContentNode<Text>('heading');
+  public content = new ContentNode<Text>('heading');
 
   constructor(
     private readonly level: number) {

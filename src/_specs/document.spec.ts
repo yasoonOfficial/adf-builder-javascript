@@ -100,4 +100,10 @@ describe('Document', () => {
     expect(JSON.stringify(doc)).to.equal('{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"hello"}]}],"version":1}');
   });
 
+  it('should be valid with a single row, single column table', () => {
+    const doc = new Document();
+    const t = doc.table();
+    t.row().cell().paragraph().text(' ');
+    expect(doc).to.be.validADF();
+  });
 });
