@@ -1,4 +1,6 @@
-import { TopLevelNode, Typed } from './index';
+import { TopLevelNode, Typed, ContentNode } from './index';
+import { Media, MediaAttributes } from './media';
+export declare type MediaSingleLayout = 'wrap-right' | 'center' | 'wrap-left' | 'wide' | 'full-width';
 export interface MediaSingleAttributes {
     id: string;
     type: 'link' | 'file' | 'external';
@@ -6,10 +8,16 @@ export interface MediaSingleAttributes {
     occurrenceKey?: string;
     width?: number;
     height?: number;
-    layout?: 'wrap-right' | 'center' | 'wrap-left' | 'wide' | 'full-width';
+    layout?: MediaSingleLayout;
+}
+export interface MediaSingleExternalAttributes extends MediaSingleAttributes {
+    type: 'link';
+    url: string;
 }
 export declare class MediaSingle extends TopLevelNode {
-    private attrs;
-    constructor(params: MediaSingleAttributes);
+    content: ContentNode<Media>;
+    constructor(layout?: MediaSingleLayout);
+    file(attr: MediaAttributes): this;
+    external(attr: MediaSingleExternalAttributes): this;
     toJSON(): Typed;
 }

@@ -1,5 +1,7 @@
-import { TopLevelNode, Typed } from './index';
+import { TopLevelNode, Typed, ContentNode } from './index';
+import { Media, MediaAttributes } from './media';
 
+export type MediaSingleLayout = 'wrap-right' | 'center' | 'wrap-left' | 'wide' | 'full-width';
 export interface MediaSingleAttributes {
   id: string;
   type: 'link' | 'file' | 'external';
@@ -7,35 +9,34 @@ export interface MediaSingleAttributes {
   occurrenceKey?: string;
   width?: number;
   height?: number;
-  layout?: 'wrap-right' | 'center' | 'wrap-left' | 'wide' | 'full-width';
+  layout?: MediaSingleLayout;
+}
+
+export interface MediaSingleExternalAttributes extends MediaSingleAttributes {
+  type: 'link';
+  url: string;
 }
 
 export class MediaSingle extends TopLevelNode {
+  //private layout: MediaSingleLayout;
+  public content = new ContentNode<Media>('mediaGroup');
 
-  private attrs: MediaSingleAttributes;
-
-  constructor(params: MediaSingleAttributes) {
+  constructor(layout?: MediaSingleLayout) {
     super();
-    this.attrs = params;
+    //this.layout = layout || 'wrap-right';
+  }
+
+  file(attr: MediaAttributes) {
+    this.content.add(new Media(attr));
+    return this;
+  }
+
+  external(attr: MediaSingleExternalAttributes) {
+    this.content.add(new Media(attr));
+    return this;
   }
 
   public toJSON(): Typed {
-    return {
-      type: 'mediaSingle',
-      attrs: {
-        layout: this.attrs.layout || 'wrap-right'
-      },
-      content: [{
-        type: 'media',
-        attrs: {
-          height: this.attrs.height,
-          width: this.attrs.width,
-          type: this.attrs.type,
-          id: this.attrs.id,
-          collection: this.attrs.collection,
-          occurrenceKey: this.attrs.occurrenceKey
-        }
-      }]
-    };
+    return this.content.toJSON();
   }
 }

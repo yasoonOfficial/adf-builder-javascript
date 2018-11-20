@@ -53,8 +53,8 @@ var Document = /** @class */ (function () {
     Document.prototype.mediaGroup = function () {
         return this.content.add(new media_group_1.MediaGroup());
     };
-    Document.prototype.mediaSingle = function (attrs) {
-        return this.content.add(new media_single_1.MediaSingle(attrs));
+    Document.prototype.mediaSingle = function () {
+        return this.content.add(new media_single_1.MediaSingle());
     };
     Document.prototype.orderedList = function () {
         return this.content.add(new ordered_list_1.OrderedList());

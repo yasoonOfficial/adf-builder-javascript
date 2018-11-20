@@ -12,7 +12,7 @@ import { Paragraph } from './nodes/paragraph';
 import { Rule } from './nodes/rule';
 import { Table } from './nodes/table';
 import { TaskList } from './nodes/task-list';
-import { MediaSingle, MediaSingleAttributes } from './nodes/media-single';
+import { MediaSingle } from './nodes/media-single';
 
 export interface DocumentAttributes {
   version: 1;
@@ -58,8 +58,8 @@ export class Document {
     return this.content.add(new MediaGroup());
   }
 
-  public mediaSingle(attrs: MediaSingleAttributes): MediaSingle {
-    return this.content.add(new MediaSingle(attrs));
+  public mediaSingle(): MediaSingle {
+    return this.content.add(new MediaSingle());
   }
 
   public orderedList(): OrderedList {

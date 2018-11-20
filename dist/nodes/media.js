@@ -16,6 +16,15 @@ var Media = /** @class */ (function () {
         if (this.attrs.occurrenceKey) {
             media.attrs.occurrenceKey = this.attrs.occurrenceKey;
         }
+        if (this.attrs.url) {
+            media.attrs.url = this.attrs.url;
+        }
+        if (this.attrs.width) {
+            media.attrs.width = this.attrs.width;
+        }
+        if (this.attrs.height) {
+            media.attrs.height = this.attrs.height;
+        }
         return media;
     };
     return Media;
