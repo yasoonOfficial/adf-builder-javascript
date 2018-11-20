@@ -11,6 +11,7 @@ import { Panel, PanelType } from './nodes/panel';
 import { Paragraph } from './nodes/paragraph';
 import { Table } from './nodes/table';
 import { TaskList } from './nodes/task-list';
+import { MediaSingle, MediaSingleAttributes } from './nodes/media-single';
 export interface DocumentAttributes {
     version: 1;
 }
@@ -26,6 +27,7 @@ export declare class Document {
     heading(level: number): Heading;
     textHeading(level: number, text: string): Heading;
     mediaGroup(): MediaGroup;
+    mediaSingle(attrs: MediaSingleAttributes): MediaSingle;
     orderedList(): OrderedList;
     panel(type: PanelType): Panel;
     paragraph(): Paragraph;

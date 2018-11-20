@@ -18,6 +18,7 @@ __export(require("./nodes/hard-break"));
 __export(require("./nodes/heading"));
 __export(require("./nodes/list-item"));
 __export(require("./nodes/media-group"));
+__export(require("./nodes/media-single"));
 __export(require("./nodes/media"));
 __export(require("./nodes/mention"));
 __export(require("./nodes/ordered-list"));

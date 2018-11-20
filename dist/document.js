@@ -22,6 +22,7 @@ var paragraph_1 = require("./nodes/paragraph");
 var rule_1 = require("./nodes/rule");
 var table_1 = require("./nodes/table");
 var task_list_1 = require("./nodes/task-list");
+var media_single_1 = require("./nodes/media-single");
 var Document = /** @class */ (function () {
     function Document(attrs) {
         if (attrs === void 0) { attrs = { version: 1 }; }
@@ -51,6 +52,9 @@ var Document = /** @class */ (function () {
     };
     Document.prototype.mediaGroup = function () {
         return this.content.add(new media_group_1.MediaGroup());
+    };
+    Document.prototype.mediaSingle = function (attrs) {
+        return this.content.add(new media_single_1.MediaSingle(attrs));
     };
     Document.prototype.orderedList = function () {
         return this.content.add(new ordered_list_1.OrderedList());

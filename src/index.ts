@@ -12,6 +12,7 @@ export * from './nodes/hard-break';
 export * from './nodes/heading';
 export * from './nodes/list-item';
 export * from './nodes/media-group';
+export * from './nodes/media-single';
 export * from './nodes/media';
 export * from './nodes/mention';
 export * from './nodes/ordered-list';

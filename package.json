@@ -8,7 +8,7 @@
   "author": "Patrick Streule <pstreule@atlassian.com>",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf dist && tsc",
+    "build": "rimraf dist && tsc",
     "test": "mocha --require ts-node/register --check-leaks `find ./src -name '*.spec.ts' -print`",
     "test:dist": "mocha --check-leaks `find ./dist -name '*.spec.js' -print`",
     "test:coverage": "nyc yarn test",
