@@ -34,6 +34,16 @@ var ContentNode = /** @class */ (function () {
         this.content.push(node);
         return node;
     };
+    Object.defineProperty(ContentNode.prototype, "length", {
+        get: function () {
+            return this.content.length;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ContentNode.prototype.getItem = function (index) {
+        return this.content[index];
+    };
     return ContentNode;
 }());
 exports.ContentNode = ContentNode;

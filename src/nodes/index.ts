@@ -44,6 +44,14 @@ export class ContentNode<T extends JSONable> {
     this.content.push(node);
     return node;
   }
+
+  public get length(): number {
+    return this.content.length;
+  }
+
+  public getItem(index: number): T {
+    return this.content[index];
+  }
 }
 
 export abstract class TopLevelNode implements JSONable {

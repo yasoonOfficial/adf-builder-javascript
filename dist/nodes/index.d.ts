@@ -15,6 +15,8 @@ export declare class ContentNode<T extends JSONable> {
         content: Typed[];
     };
     add<U extends T>(node: U): U;
+    readonly length: number;
+    getItem(index: number): T;
 }
 export declare abstract class TopLevelNode implements JSONable {
     abstract toJSON(): Typed;
