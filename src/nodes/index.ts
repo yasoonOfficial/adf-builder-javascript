@@ -18,7 +18,18 @@ export class ContentNode<T extends JSONable> {
 
   public toJSON() {
     if (this.content.length < this.minLength) {
-      throw new Error(`There must be at least ${this.minLength} content elements`);
+      return {
+        type: this.type,
+        //We cannot import Paragraph as it is the subclass :(
+        //content: [new Paragraph().text(' ').toJSON()] 
+        content: [{
+          type: 'paragraph',
+          content: [{
+            type: 'text',
+            text: ' '
+          }]
+        }]
+      };
     }
     return {
       type: this.type,
